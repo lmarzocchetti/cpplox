@@ -1,6 +1,13 @@
-#include <iostream>
+#include "chunk.hpp"
+#include "debug.hpp"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    Chunk chunk = Chunk();
+    chunk.writeChunk(OpCode::OP_RETURN);
+
+    disassembleChunk(chunk, "test chunk");
+
+    chunk.freeChunk();
+
     return 0;
 }
