@@ -29,7 +29,7 @@ size_t Chunk::count() const {
 void Chunk::writeConstant(Value value, int line) {
     size_t constant = this->addConstant(value);
 
-    if (constant < 255) {
+    if (constant <= 255) {
         this->writeChunk(OpCode::OP_CONSTANT, line);
         this->writeChunk(constant, line);
     } else {
