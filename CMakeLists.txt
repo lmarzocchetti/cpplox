@@ -13,4 +13,5 @@ add_executable(cpplox main.cpp
         value.hpp
         chunk.hpp
         chunk.cpp
+        value.cpp
 )

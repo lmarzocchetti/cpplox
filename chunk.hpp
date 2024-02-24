@@ -13,17 +13,23 @@
 #include "value.hpp"
 
 enum OpCode {
+    OP_CONSTANT,
+    OP_CONSTANT_LONG,
     OP_RETURN,
 };
 
 struct Chunk {
     std::vector<uint8_t> code;
+    std::vector<int> lines;
     std::vector<Value> constants;
 
     Chunk();
 
-    void writeChunk(uint8_t byte);
+    void writeChunk(uint8_t byte, int line);
     void freeChunk();
+    void writeConstant(Value value, int line);
+    size_t addConstant(Value value);
+
     [[nodiscard]] size_t count() const;
 };
 
