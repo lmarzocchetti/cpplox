@@ -7,10 +7,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 
 add_executable(cpplox main.cpp
-        chunk.hpp
         common.hpp
-        memory.hpp
         debug.hpp
         debug.cpp
         value.hpp
+        chunk.hpp
+        chunk.cpp
 )
