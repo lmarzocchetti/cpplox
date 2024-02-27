@@ -5,6 +5,9 @@
 #ifndef CPPLOX_VM_HPP
 #define CPPLOX_VM_HPP
 
+#include <stack>
+#include <functional>
+
 #include "chunk.hpp"
 #include "debug.hpp"
 
@@ -17,6 +20,7 @@ enum InterpretResult {
 struct VM {
     Chunk* chunk_;
     uint8_t* ip;
+    std::stack<Value> stack;
 
     VM();
 
@@ -25,6 +29,9 @@ struct VM {
     void freeVM();
 private:
     InterpretResult run();
+
+    void resetStack();
+    void printStack() const;
 
     constexpr uint8_t READ_BYTE();
     constexpr Value READ_CONSTANT();
