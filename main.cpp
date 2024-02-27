@@ -1,7 +1,10 @@
 #include "chunk.hpp"
 #include "debug.hpp"
+#include "vm.hpp"
 
 int main() {
+    VM vm = VM();
+
     Chunk chunk = Chunk();
 
     for (int i = 0; i < 270; i++) {
@@ -9,9 +12,11 @@ int main() {
     }
 
     chunk.writeChunk(OpCode::OP_RETURN, 123);
+    // disassembleChunk(chunk, "test chunk");
 
-    disassembleChunk(chunk, "test chunk");
+    vm.interpret(&chunk);
 
+    vm.freeVM();
     chunk.freeChunk();
 
     return 0;

@@ -7,4 +7,6 @@
 
 #include <cstdlib>
 
+#define DEBUG_TRACE_EXECUTION
+
 #endif //CPPLOX_COMMON_HPP
