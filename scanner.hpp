@@ -35,10 +35,9 @@ enum TokenType {
 struct Token {
     TokenType type;
     std::string start;
-    int length;
     int line;
 
-    Token(TokenType type, const std::string& start, int length, int line);
+    Token(TokenType type, const std::string& start, int line);
 };
 
 struct Scanner {
@@ -46,11 +45,11 @@ struct Scanner {
     int current;
     int line;
 
-    Scanner(const std::string& source);
+    explicit Scanner(const std::string& source);
 
     Token scanToken();
 private:
-    bool isAtEnd();
+    [[nodiscard]] bool isAtEnd() const;
     char advance();
     char peek();
     char peekNext();
@@ -58,8 +57,8 @@ private:
 
     void skipWhitespace();
 
-    Token makeToken(TokenType type);
-    Token errorToken(const std::string& message);
+    [[nodiscard]] Token makeToken(TokenType type, const std::string& val) const;
+    [[nodiscard]] Token errorToken(const std::string& message) const;
 };
 
 #endif //CPPLOX_SCANNER_HPP

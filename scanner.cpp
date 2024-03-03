@@ -6,10 +6,9 @@
 
 // TOKEN
 
-Token::Token(TokenType type, const std::string& start, int length, int line) {
+Token::Token(TokenType type, const std::string& start, int line) {
     this->type = type;
     this->start = start;
-    this->length = length;
     this->line = line;
 }
 
@@ -28,48 +27,68 @@ Token Scanner::scanToken() {
     skipWhitespace();
 
     if (isAtEnd()) {
-        return makeToken(TokenType::TOKEN_EOF);
+        return makeToken(TokenType::TOKEN_EOF, "");
     }
 
     char c = advance();
 
     switch (c) {
         case '(':
-            return makeToken(TokenType::TOKEN_LEFT_PAREN);
+            return makeToken(TokenType::TOKEN_LEFT_PAREN, "(");
         case ')':
-            return makeToken(TokenType::TOKEN_RIGHT_PAREN);
+            return makeToken(TokenType::TOKEN_RIGHT_PAREN, ")");
         case '{':
-            return makeToken(TokenType::TOKEN_LEFT_BRACE);
+            return makeToken(TokenType::TOKEN_LEFT_BRACE, "{");
         case '}':
-            return makeToken(TokenType::TOKEN_RIGHT_BRACE);
+            return makeToken(TokenType::TOKEN_RIGHT_BRACE, "}");
         case ';':
-            return makeToken(TokenType::TOKEN_SEMICOLON);
+            return makeToken(TokenType::TOKEN_SEMICOLON, ";");
         case ',':
-            return makeToken(TokenType::TOKEN_COMMA);
+            return makeToken(TokenType::TOKEN_COMMA, ",");
         case '.':
-            return makeToken(TokenType::TOKEN_DOT);
+            return makeToken(TokenType::TOKEN_DOT, ".");
         case '-':
-            return makeToken(TokenType::TOKEN_MINUS);
+            return makeToken(TokenType::TOKEN_MINUS, "-");
         case '+':
-            return makeToken(TokenType::TOKEN_PLUS);
+            return makeToken(TokenType::TOKEN_PLUS, "+");
         case '/':
-            return makeToken(TokenType::TOKEN_SLASH);
+            return makeToken(TokenType::TOKEN_SLASH, "/");
         case '*':
-            return makeToken(TokenType::TOKEN_STAR);
+            return makeToken(TokenType::TOKEN_STAR, "*");
         case '!':
-            return makeToken(match('=') ? TokenType::TOKEN_BANG_EQUAL : TokenType::TOKEN_BANG);
+            if (match('=')) {
+                return makeToken(TokenType::TOKEN_BANG_EQUAL, "!=");
+            }
+            else {
+                return makeToken(TokenType::TOKEN_BANG, "!");
+            }
         case '=':
-            return makeToken(match('=') ? TokenType::TOKEN_EQUAL_EQUAL : TokenType::TOKEN_EQUAL);
+            if (match('=')) {
+                return makeToken(TokenType::TOKEN_EQUAL_EQUAL, "==");
+            }
+            else {
+                return makeToken(TokenType::TOKEN_EQUAL, "=");
+            }
         case '<':
-            return makeToken(match('=') ? TokenType::TOKEN_LESS_EQUAL : TokenType::TOKEN_LESS);
+            if (match('=')) {
+                return makeToken(TokenType::TOKEN_LESS_EQUAL, "<=");
+            }
+            else {
+                return makeToken(TokenType::TOKEN_LESS, "<");
+            }
         case '>':
-            return makeToken(match('=') ? TokenType::TOKEN_GREATER_EQUAL : TokenType::TOKEN_GREATER);
+            if (match('=')) {
+                return makeToken(TokenType::TOKEN_GREATER_EQUAL, ">=");
+            }
+            else {
+                return makeToken(TokenType::TOKEN_GREATER, ">");
+            }
     }
 
     return errorToken("Unexpected character.");
 }
 
-bool Scanner::isAtEnd() {
+bool Scanner::isAtEnd() const {
     return this->source.length() == this->current;
 }
 
@@ -130,15 +149,12 @@ void Scanner::skipWhitespace() {
     }
 }
 
-Token Scanner::makeToken(TokenType type) {
-    return Token{type, this->source, this->current, this->line};
+Token Scanner::makeToken(TokenType type, const std::string& val) const {
+    return Token{type, val, this->line};
 }
 
-Token Scanner::errorToken(const std::string& message) {
-    return Token{TokenType::TOKEN_ERROR, message, static_cast<int>(message.length()), this->line};
+Token Scanner::errorToken(const std::string& message) const {
+    return Token{TokenType::TOKEN_ERROR, message, this->line};
 }
-
-
-
 
 // SCANNER
