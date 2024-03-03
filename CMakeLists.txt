@@ -16,4 +16,8 @@ add_executable(cpplox main.cpp
         value.cpp
         vm.hpp
         vm.cpp
+        compiler.hpp
+        compiler.cpp
+        scanner.hpp
+        scanner.cpp
 )

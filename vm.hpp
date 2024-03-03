@@ -10,6 +10,7 @@
 
 #include "chunk.hpp"
 #include "debug.hpp"
+#include "compiler.hpp"
 
 enum InterpretResult {
     INTERPRET_OK,
@@ -25,6 +26,7 @@ struct VM {
     VM();
 
     InterpretResult interpret(Chunk* chunk);
+    InterpretResult interpret(const std::string& source);
 
     void freeVM();
 private:

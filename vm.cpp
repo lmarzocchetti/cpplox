@@ -77,6 +77,13 @@ InterpretResult VM::interpret(Chunk *chunk) {
     return run();
 }
 
+InterpretResult VM::interpret(const std::string &source) {
+    compile(source);
+
+    return InterpretResult::INTERPRET_OK;
+}
+
+
 void VM::freeVM() {
 
 }
