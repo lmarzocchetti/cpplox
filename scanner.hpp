@@ -25,7 +25,7 @@ enum TokenType {
 
     // Keywords
     TOKEN_AND, TOKEN_CLASS, TOKEN_ELSE, TOKEN_FALSE,
-    TOKEN_FOR, TOKEN_FUN, TOKEN_IF, TOKEN_NUL, TOKEN_OR,
+    TOKEN_FOR, TOKEN_FUN, TOKEN_IF, TOKEN_NIL, TOKEN_OR,
     TOKEN_PRINT, TOKEN_RETURN, TOKEN_SUPER, TOKEN_THIS,
     TOKEN_TRUE, TOKEN_VAR, TOKEN_WHILE,
 
@@ -62,8 +62,9 @@ private:
 
     Token string();
     Token number();
+    TokenType checkKeyword(int length, int skipped, const std::string& rest, TokenType type);
+    TokenType identifierType(int skipped);
     Token identifier();
-    TokenType identifierType();
 
     [[nodiscard]] Token makeToken(TokenType type, bool matched) const;
     [[nodiscard]] Token errorToken(const std::string& message) const;

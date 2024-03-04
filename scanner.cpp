@@ -216,21 +216,72 @@ Token Scanner::number() {
     return Token{TokenType::TOKEN_NUMBER, this->source.substr(starting, tok_len), this->line};
 }
 
+TokenType Scanner::checkKeyword(int length, int skipped, const std::string& rest, TokenType type) {
+    if (this->source.substr(this->current - length, length) == rest && skipped == length + 1) {
+        return type;
+    }
+
+    return TokenType::TOKEN_IDENTIFIER;
+}
+
+TokenType Scanner::identifierType(int skipped) {
+    switch (this->source[current - skipped]) {
+        case 'a':
+            return checkKeyword(2, skipped, "nd", TokenType::TOKEN_AND);
+        case 'c':
+            return checkKeyword(4, skipped, "lass", TokenType::TOKEN_CLASS);
+        case 'e':
+            return checkKeyword(3, skipped, "lse", TokenType::TOKEN_ELSE);
+        case 'f':
+            switch (this->source[current - skipped + 1]) {
+                case 'a':
+                    return checkKeyword(4, skipped, "alse", TokenType::TOKEN_FALSE);
+                case 'o':
+                    return checkKeyword(2, skipped, "or", TokenType::TOKEN_FOR);
+                case 'u':
+                    return checkKeyword(2, skipped, "un", TokenType::TOKEN_FUN);
+            }
+            break;
+        case 'i':
+            return checkKeyword(1, skipped, "f", TokenType::TOKEN_IF);
+        case 'n':
+            return checkKeyword(2, skipped, "il", TokenType::TOKEN_NIL);
+        case 'o':
+            return checkKeyword(1, skipped, "r", TokenType::TOKEN_OR);
+        case 'p':
+            return checkKeyword(4, skipped, "rint", TokenType::TOKEN_PRINT);
+        case 'r':
+            return checkKeyword(5, skipped, "eturn", TokenType::TOKEN_RETURN);
+        case 's':
+            return checkKeyword(4, skipped, "uper", TokenType::TOKEN_SUPER);
+        case 't':
+            switch (this->source[current - skipped + 1]) {
+                case 'h':
+                    return checkKeyword(3, skipped, "his", TokenType::TOKEN_THIS);
+                case 'r':
+                    return checkKeyword(3, skipped, "rue", TokenType::TOKEN_TRUE);
+            }
+            break;
+        case 'v':
+            return checkKeyword(2, skipped, "ar", TokenType::TOKEN_VAR);
+        case 'w':
+            return checkKeyword(4, skipped, "hile", TokenType::TOKEN_WHILE);
+    }
+
+    return TOKEN_IDENTIFIER;
+}
+
 Token Scanner::identifier() {
     int starting = this->current - 1;
+    int skipped = 1;
 
     while (isAlpha(peek()) || isDigit(peek())) {
         advance();
         this->tok_len += 1;
+        skipped += 1;
     }
 
-
-}
-
-TokenType Scanner::identifierType() {
-
-
-    return TOKEN_IDENTIFIER;
+    return Token{identifierType(skipped), this->source.substr(starting, tok_len), this->line};
 }
 
 Token Scanner::makeToken(TokenType type, bool matched) const {
@@ -248,5 +299,6 @@ Token Scanner::makeToken(TokenType type, bool matched) const {
 Token Scanner::errorToken(const std::string& message) const {
     return Token{TokenType::TOKEN_ERROR, message, this->line};
 }
+
 
 // SCANNER
