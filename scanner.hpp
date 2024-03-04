@@ -43,6 +43,7 @@ struct Token {
 struct Scanner {
     std::string source;
     int current;
+    int tok_len;
     int line;
 
     explicit Scanner(const std::string& source);
@@ -55,9 +56,16 @@ private:
     char peekNext();
     bool match(char expected);
 
+    bool isDigit(char c);
+    bool isAlpha(char c);
     void skipWhitespace();
 
-    [[nodiscard]] Token makeToken(TokenType type, const std::string& val) const;
+    Token string();
+    Token number();
+    Token identifier();
+    TokenType identifierType();
+
+    [[nodiscard]] Token makeToken(TokenType type, bool matched) const;
     [[nodiscard]] Token errorToken(const std::string& message) const;
 };
 
