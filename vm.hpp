@@ -24,12 +24,12 @@ struct VM {
     std::stack<Value> stack;
 
     VM();
+    ~VM();
 
     InterpretResult interpret(Chunk* chunk);
     InterpretResult interpret(const std::string& source);
-
-    void freeVM();
 private:
+    void freeVM();
     InterpretResult run();
 
     void resetStack();

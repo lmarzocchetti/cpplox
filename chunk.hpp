@@ -35,6 +35,7 @@ struct Chunk {
     std::vector<Value> constants;
 
     Chunk();
+    ~Chunk();
 
     /**
      * Store a byte in the code vector and an int that represent a line in the line vector
@@ -42,11 +43,6 @@ struct Chunk {
      * @param line: Line number in the source code of the language
      */
     void writeChunk(uint8_t byte, int line);
-
-    /**
-     * Free all memory in the structure, so basically reinitialize the three vectors
-     */
-    void freeChunk();
 
     /**
      * Write an OpCode based on how many values are stored in the constants vector:
@@ -69,6 +65,11 @@ struct Chunk {
      * @return: Number of elements in the code vector
      */
     [[nodiscard]] size_t count() const;
+private:
+     /**
+     * Free all memory in the structure, so basically reinitialize the three vectors
+     */
+    void freeChunk();
 };
 
 #endif //CPPLOX_CHUNK_HPP

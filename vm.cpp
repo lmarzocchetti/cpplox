@@ -8,6 +8,10 @@ VM::VM() {
     resetStack();
 }
 
+VM::~VM() {
+    freeVM();
+}
+
 InterpretResult VM::run() {
 #define BINARY_OP(op)                 \
     do {                              \

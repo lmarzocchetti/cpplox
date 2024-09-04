@@ -68,9 +68,6 @@ int main1() {
 
     vm.interpret(&chunk);
 
-    vm.freeVM();
-    chunk.freeChunk();
-
     return 0;
 }
 
@@ -87,6 +84,5 @@ int main(int argc, const char* argv[]) {
         exit(64);
     }
 
-    vm.freeVM();
     return 0;
 }
