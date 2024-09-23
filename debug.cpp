@@ -5,7 +5,7 @@
 #include "debug.hpp"
 
 void disassembleChunk(const Chunk& chunk, const std::string& name) {
-    std::cout << std::format("== {} ==\n", name);
+    std::print("== {} ==\n", name);
 
     for (int offset = 0; offset < chunk.count();) {
         offset = disassembleInstruction(chunk, offset);
@@ -14,9 +14,9 @@ void disassembleChunk(const Chunk& chunk, const std::string& name) {
 
 static int constantInstruction(const std::string& name, const Chunk& chunk, int offset) {
     uint8_t constant = chunk.code[offset + 1];
-    std::cout << std::format("{}    {} '", name, constant);
+    std::print("{}      {} '", name, constant);
     printValue(chunk.constants[constant]);
-    std::cout << "'\n";
+    std::print("'\n");
     return offset + 2;
 }
 
@@ -30,25 +30,25 @@ static int constantLongInstruction(const std::string& name, const Chunk& chunk, 
     index = (index << 8) | constant_2byte;
     index = (index << 8) | constant_1byte;
 
-    std::cout << std::format("{}    {} '", name, index);
+    std::print("{}      {} '", name, index);
     printValue(chunk.constants[index]);
-    std::cout << "'\n";
+    std::print("'\n");
 
     return offset + 4;
 }
 
 static int simpleInstruction(const std::string& name, int offset) {
-    std::cout << std::format("{}\n", name);
+    std::print("{}\n", name);
     return offset + 1;
 }
 
 int disassembleInstruction(const Chunk& chunk, int offset) {
-    std::cout << std::format("{:04} ", offset);
+    std::print("{:04} ", offset);
 
     if (offset > 0 && chunk.lines[offset] == chunk.lines[offset - 1]) {
-        std::cout << "   | ";
+        std::print("    | ");
     } else {
-        std::cout << std::format("{:04} ", chunk.lines[offset]);
+        std::print("{:04} ", chunk.lines[offset]);
     }
 
     uint8_t instruction = chunk.code[offset];
@@ -71,7 +71,7 @@ int disassembleInstruction(const Chunk& chunk, int offset) {
         case OpCode::OP_RETURN:
             return simpleInstruction("OP_RETURN", offset);
         default:
-            std::cout << std::format("Unknown opcode {}\n", instruction);
+            std::print("Unknown opcode {}\n", instruction);
             return offset + 1;
     }
 }

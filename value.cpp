@@ -5,5 +5,5 @@
 #include "value.hpp"
 
 void printValue(Value value) {
-    std::cout << std::format("{}", value);
+    std::print("{}", value);
 }

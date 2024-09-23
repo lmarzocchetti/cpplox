@@ -2,7 +2,7 @@
 
 ## Chapter that i'm implementing -> 17
 
-### My implementation of CLox programming language from crafting interpreters but in C++20
+### My implementation of CLox programming language from crafting interpreters but in C++23
 
 I'm following the book but i'm trying to convert all the C code to C++ (C++20 standard), so the implementation is really
 different from the book. However the content is the same as the original C code, but with some exercise solved.

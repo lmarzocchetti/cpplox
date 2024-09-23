@@ -24,7 +24,7 @@ InterpretResult VM::run() {
 
     while (true) {
 #ifdef DEBUG_TRACE_EXECUTION
-        std::cout << "          ";
+        std::print("           ");
         printStack();
         disassembleInstruction(*this->chunk_, (int)(this->ip - this->chunk_->code.data()));
 #endif
@@ -34,14 +34,14 @@ InterpretResult VM::run() {
                 Value constant = READ_CONSTANT();
                 this->stack.push(constant);
                 printValue(constant);
-                std::cout << "\n";
+                std::print("\n");
                 break;
             }
             case OpCode::OP_CONSTANT_LONG: {
                 Value constant = READ_CONSTANT_LONG();
                 this->stack.push(constant);
                 printValue(constant);
-                std::cout << "\n";
+                std::print("\n");
                 break;
             }
             case OpCode::OP_ADD: {
@@ -66,7 +66,7 @@ InterpretResult VM::run() {
             }
             case OpCode::OP_RETURN: {
                 printValue(this->stack.top());
-                std::cout << "\n";
+                std::print("\n");
                 this->stack.pop();
                 return InterpretResult::INTERPRET_OK;
             }
@@ -95,18 +95,18 @@ void VM::freeVM() {
 void VM::printStack() const {
     auto st_copy = this->stack;
 
-    std::cout << "[";
+    std::print("[");
 
     while (!st_copy.empty()) {
         if (st_copy.size() == 1) {
-            std::cout << st_copy.top();
+            std::print("{}", st_copy.top());
         } else {
-            std::cout << st_copy.top() << ", ";
+            std::print("{}, ", st_copy.top());
         }
         st_copy.pop();
     }
 
-    std::cout << "]\n";
+    std::print("]\n");
 }
 
 void VM::resetStack() {

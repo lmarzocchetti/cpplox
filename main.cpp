@@ -9,7 +9,7 @@ static void repl(VM& vm) {
 
     while (true) {
         if (!std::getline(std::cin, line)) {
-            printf("exiting...\n");
+            std::print("exiting...\n");
             break;
         }
 

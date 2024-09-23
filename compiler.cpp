@@ -12,12 +12,12 @@ void compile(const std::string& source) {
     while (true) {
         Token token = scanner.scanToken();
         if (token.line != line) {
-            std::cout << std::format("line: {}\n", token.line);
+            std::print("line: {}\n", token.line);
             line = token.line;
         }
 
-        std::cout << "      | ";
-        std::cout << std::format("{} '{}'\n", static_cast<uint8_t>(token.type), token.start);
+        std::print("        | ");
+        std::print("{} '{}'\n", static_cast<uint8_t>(token.type), token.start);
 
         if (token.type == TokenType::TOKEN_EOF) {
             break;
