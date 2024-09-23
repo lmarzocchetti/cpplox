@@ -1,7 +1,3 @@
-//
-// Created by Lorenzo Marzocchetti on 27/02/24.
-//
-
 #include "vm.hpp"
 
 VM::VM() {
@@ -12,6 +8,14 @@ VM::~VM() {
     freeVM();
 }
 
+constexpr void VM::NEW_BINARY_OP(const std::function<Value(Value, Value)>& op) {
+    double b = this->stack.top();
+    this->stack.pop();
+    double a = this->stack.top();
+    this->stack.pop();
+    this->stack.push(op(a, b));
+}
+
 InterpretResult VM::run() {
 #define BINARY_OP(op)                 \
     do {                              \
@@ -20,7 +24,7 @@ InterpretResult VM::run() {
         double a = this->stack.top(); \
         this->stack.pop();            \
         this->stack.push(a op b);     \
-    } while (false)
+    } while (false)                   \
 
     while (true) {
 #ifdef DEBUG_TRACE_EXECUTION
@@ -28,8 +32,8 @@ InterpretResult VM::run() {
         printStack();
         disassembleInstruction(*this->chunk_, (int)(this->ip - this->chunk_->code.data()));
 #endif
-        uint8_t instruction;
-        switch (instruction = READ_BYTE()) {
+        uint8_t instruction = READ_BYTE();
+        switch (instruction) {
             case OpCode::OP_CONSTANT: {
                 Value constant = READ_CONSTANT();
                 this->stack.push(constant);
@@ -45,19 +49,23 @@ InterpretResult VM::run() {
                 break;
             }
             case OpCode::OP_ADD: {
-                BINARY_OP(+);
+                this->NEW_BINARY_OP([](auto a, auto b) {return a + b;});
+//                BINARY_OP(+);
                 break;
             }
             case OpCode::OP_SUBTRACT: {
-                BINARY_OP(-);
+                this->NEW_BINARY_OP([](auto a, auto b) {return a - b;});
+//                BINARY_OP(-);
                 break;
             }
             case OpCode::OP_MULTIPLY: {
-                BINARY_OP(*);
+                this->NEW_BINARY_OP([](auto a, auto b) {return a * b;});
+//                BINARY_OP(*);
                 break;
             }
             case OpCode::OP_DIVIDE: {
-                BINARY_OP(/);
+                this->NEW_BINARY_OP([](auto a, auto b) {return a / b;});
+//                BINARY_OP(/);
                 break;
             }
             case OpCode::OP_NEGATE: {
@@ -69,6 +77,9 @@ InterpretResult VM::run() {
                 std::print("\n");
                 this->stack.pop();
                 return InterpretResult::INTERPRET_OK;
+            }
+            default: {
+                std::cerr << "ERRORE: OPCODE not implemented" << std::endl;
             }
         }
     }

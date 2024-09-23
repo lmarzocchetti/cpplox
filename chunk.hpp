@@ -1,9 +1,4 @@
-//
-// Created by Lorenzo Marzocchetti on 24/02/24.
-//
-
-#ifndef CPPLOX_CHUNK_HPP
-#define CPPLOX_CHUNK_HPP
+#pragma once
 
 #include <iostream>
 #include <print>
@@ -71,5 +66,3 @@ private:
      */
     void freeChunk();
 };
-
-#endif //CPPLOX_CHUNK_HPP

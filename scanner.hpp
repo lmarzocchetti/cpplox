@@ -1,9 +1,4 @@
-//
-// Created by Lorenzo Marzocchetti on 03/03/24.
-//
-
-#ifndef CPPLOX_SCANNER_HPP
-#define CPPLOX_SCANNER_HPP
+#pragma once
 
 #include <iostream>
 
@@ -69,5 +64,3 @@ private:
     [[nodiscard]] Token makeToken(TokenType type, bool matched) const;
     [[nodiscard]] Token errorToken(const std::string& message) const;
 };
-
-#endif //CPPLOX_SCANNER_HPP

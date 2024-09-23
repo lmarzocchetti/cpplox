@@ -1,9 +1,4 @@
-//
-// Created by Lorenzo Marzocchetti on 27/02/24.
-//
-
-#ifndef CPPLOX_VM_HPP
-#define CPPLOX_VM_HPP
+#pragma once
 
 #include <stack>
 #include <functional>
@@ -35,9 +30,8 @@ private:
     void resetStack();
     void printStack() const;
 
+    constexpr void NEW_BINARY_OP(const std::function<Value(Value, Value)>& op);
     constexpr uint8_t READ_BYTE();
     constexpr Value READ_CONSTANT();
     constexpr Value READ_CONSTANT_LONG();
 };
-
-#endif //CPPLOX_VM_HPP

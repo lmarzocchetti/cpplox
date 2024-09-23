@@ -217,7 +217,7 @@ Token Scanner::number() {
 }
 
 TokenType Scanner::checkKeyword(int length, int skipped, const std::string& rest, TokenType type) {
-    if (this->source.substr(this->current - length, length) == rest && skipped == length + 1) {
+    if (skipped == length + 1 && this->source.substr(this->current - length, length) == rest) {
         return type;
     }
 

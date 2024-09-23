@@ -14,5 +14,5 @@ For now i've implemented these extra parts:
 
 ### Optimization to implement
 These are some optimization that i want implement, but i'm planning to do after i can run some code:
-- Run-length-encoding: for line number (Chapter 14: num 1)
-- BINARY_OP C++: Get rid of the C macro for the BINARY_OP, and replace it with a constexpr std::function (only available in c++23)
+- [] Run-length-encoding: for line number (Chapter 14: num 1)
+- [x] BINARY_OP C++: Get rid of the C macro for the BINARY_OP, and replace it with a constexpr std::function (only available in c++23)
