@@ -60,6 +60,7 @@ int main1() {
     VM vm = VM();
 
     Chunk chunk = Chunk();
+    
 
     chunk.writeConstant(1.2, 123);
     chunk.writeConstant(3.4, 123);
@@ -83,8 +84,6 @@ int main(int argc, const char* argv[]) {
     // Abilita il rilevamento dei memory leak
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
-
-    void* a = malloc(1000);
 
     VM vm = VM();
 
