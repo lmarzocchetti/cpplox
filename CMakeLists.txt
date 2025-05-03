@@ -6,17 +6,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(cpplox main.cpp
-        common.hpp
-        debug.hpp
-        debug.cpp
-        value.hpp
-        chunk.hpp
-        chunk.cpp
-        value.cpp
-        vm.hpp
-        vm.cpp
-        compiler.hpp
-        compiler.cpp
-        scanner.hpp
-        scanner.cpp
+        src/common.hpp
+        src/debug.hpp
+        src/debug.cpp
+        src/value.hpp
+        src/chunk.hpp
+        src/chunk.cpp
+        src/value.cpp
+        src/vm.hpp
+        src/vm.cpp
+        src/compiler.hpp
+        src/compiler.cpp
+        src/scanner.hpp
+        src/scanner.cpp
 )

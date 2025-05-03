@@ -1,9 +1,9 @@
 #include <string>
 #include <fstream>
 
-#include "chunk.hpp"
-#include "debug.hpp"
-#include "vm.hpp"
+#include "src/chunk.hpp"
+#include "src/debug.hpp"
+#include "src/vm.hpp"
 
 static void repl(VM& vm) {
     std::string line{};
