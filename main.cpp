@@ -1,3 +1,4 @@
+#include <string>
 #include <fstream>
 
 #include "chunk.hpp"
@@ -9,7 +10,7 @@ static void repl(VM& vm) {
 
     while (true) {
         if (!std::getline(std::cin, line)) {
-            std::print("exiting...\n");
+            std::cout << std::format("exiting...\n");
             break;
         }
 

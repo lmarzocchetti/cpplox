@@ -4,3 +4,5 @@
 /cmake-build-debug-clang/
 /cmake-build-release-clang/
 /.DS_Store/
+/.vs/
+/out/

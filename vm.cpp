@@ -8,14 +8,6 @@ VM::~VM() {
     freeVM();
 }
 
-constexpr void VM::NEW_BINARY_OP(const std::function<Value(Value, Value)>& op) {
-    double b = this->stack.top();
-    this->stack.pop();
-    double a = this->stack.top();
-    this->stack.pop();
-    this->stack.push(op(a, b));
-}
-
 InterpretResult VM::run() {
 #define BINARY_OP(op)                 \
     do {                              \
@@ -28,7 +20,7 @@ InterpretResult VM::run() {
 
     while (true) {
 #ifdef DEBUG_TRACE_EXECUTION
-        std::print("           ");
+        std::cout << "           ";
         printStack();
         disassembleInstruction(*this->chunk_, (int)(this->ip - this->chunk_->code.data()));
 #endif
@@ -38,34 +30,30 @@ InterpretResult VM::run() {
                 Value constant = READ_CONSTANT();
                 this->stack.push(constant);
                 printValue(constant);
-                std::print("\n");
+                std::cout << "\n";
                 break;
             }
             case OpCode::OP_CONSTANT_LONG: {
                 Value constant = READ_CONSTANT_LONG();
                 this->stack.push(constant);
                 printValue(constant);
-                std::print("\n");
+                std::cout << "\n";
                 break;
             }
             case OpCode::OP_ADD: {
-                this->NEW_BINARY_OP([](auto a, auto b) {return a + b;});
-//                BINARY_OP(+);
+                BINARY_OP(+);
                 break;
             }
             case OpCode::OP_SUBTRACT: {
-                this->NEW_BINARY_OP([](auto a, auto b) {return a - b;});
-//                BINARY_OP(-);
+                BINARY_OP(-);
                 break;
             }
             case OpCode::OP_MULTIPLY: {
-                this->NEW_BINARY_OP([](auto a, auto b) {return a * b;});
-//                BINARY_OP(*);
+                BINARY_OP(*);
                 break;
             }
             case OpCode::OP_DIVIDE: {
-                this->NEW_BINARY_OP([](auto a, auto b) {return a / b;});
-//                BINARY_OP(/);
+                BINARY_OP(/);
                 break;
             }
             case OpCode::OP_NEGATE: {
@@ -74,7 +62,7 @@ InterpretResult VM::run() {
             }
             case OpCode::OP_RETURN: {
                 printValue(this->stack.top());
-                std::print("\n");
+                std::cout << "\n";
                 this->stack.pop();
                 return InterpretResult::INTERPRET_OK;
             }
@@ -106,18 +94,18 @@ void VM::freeVM() {
 void VM::printStack() const {
     auto st_copy = this->stack;
 
-    std::print("[");
+    std::cout << "[";
 
     while (!st_copy.empty()) {
         if (st_copy.size() == 1) {
-            std::print("{}", st_copy.top());
+            std::cout << std::format("{}", st_copy.top());
         } else {
-            std::print("{}, ", st_copy.top());
+            std::cout << std::format("{}, ", st_copy.top());
         }
         st_copy.pop();
     }
 
-    std::print("]\n");
+    std::cout << "]\n";
 }
 
 void VM::resetStack() {

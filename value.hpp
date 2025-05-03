@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <print>
+#include <format>
 
 #include "common.hpp"
 
