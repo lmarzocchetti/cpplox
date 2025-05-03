@@ -26,41 +26,41 @@ InterpretResult VM::run() {
 #endif
         uint8_t instruction = READ_BYTE();
         switch (instruction) {
-            case OpCode::OP_CONSTANT: {
+            case static_cast<uint8_t>(OpCode::OP_CONSTANT): {
                 Value constant = READ_CONSTANT();
                 this->stack.push(constant);
                 printValue(constant);
                 std::cout << "\n";
                 break;
             }
-            case OpCode::OP_CONSTANT_LONG: {
+            case static_cast<uint8_t>(OpCode::OP_CONSTANT_LONG): {
                 Value constant = READ_CONSTANT_LONG();
                 this->stack.push(constant);
                 printValue(constant);
                 std::cout << "\n";
                 break;
             }
-            case OpCode::OP_ADD: {
+            case static_cast<uint8_t>(OpCode::OP_ADD): {
                 BINARY_OP(+);
                 break;
             }
-            case OpCode::OP_SUBTRACT: {
+            case static_cast<uint8_t>(OpCode::OP_SUBTRACT): {
                 BINARY_OP(-);
                 break;
             }
-            case OpCode::OP_MULTIPLY: {
+            case static_cast<uint8_t>(OpCode::OP_MULTIPLY): {
                 BINARY_OP(*);
                 break;
             }
-            case OpCode::OP_DIVIDE: {
+            case static_cast<uint8_t>(OpCode::OP_DIVIDE): {
                 BINARY_OP(/);
                 break;
             }
-            case OpCode::OP_NEGATE: {
+            case static_cast<uint8_t>(OpCode::OP_NEGATE): {
                 stack.top() = -stack.top();
                 break;
             }
-            case OpCode::OP_RETURN: {
+            case static_cast<uint8_t>(OpCode::OP_RETURN): {
                 printValue(this->stack.top());
                 std::cout << "\n";
                 this->stack.pop();

@@ -58,13 +58,13 @@ int main1() {
     chunk.writeConstant(1.2, 123);
     chunk.writeConstant(3.4, 123);
 
-    chunk.writeChunk(OpCode::OP_ADD, 123);
+    chunk.writeChunk(static_cast<uint8_t>(OpCode::OP_ADD), 123);
 
     chunk.writeConstant(5.6, 123);
-    chunk.writeChunk(OpCode::OP_DIVIDE, 123);
-    chunk.writeChunk(OpCode::OP_NEGATE, 123);
+    chunk.writeChunk(static_cast<uint8_t>(OpCode::OP_DIVIDE), 123);
+    chunk.writeChunk(static_cast<uint8_t>(OpCode::OP_NEGATE), 123);
 
-    chunk.writeChunk(OpCode::OP_RETURN, 123);
+    chunk.writeChunk(static_cast<uint8_t>(OpCode::OP_RETURN), 123);
     // disassembleChunk(chunk, "test chunk");
 
     vm.interpret(&chunk);

@@ -33,10 +33,10 @@ void Chunk::writeConstant(Value value, int line) {
   size_t constant = this->addConstant(value);
 
   if (constant <= 255) {
-    this->writeChunk(OpCode::OP_CONSTANT, line);
+    this->writeChunk(static_cast<uint8_t>(OpCode::OP_CONSTANT), line);
     this->writeChunk(constant, line);
   } else {
-    this->writeChunk(OpCode::OP_CONSTANT_LONG, line);
+    this->writeChunk(static_cast<uint8_t>(OpCode::OP_CONSTANT_LONG), line);
     this->writeChunk(constant & 0xFF, line);
     this->writeChunk((constant >> 8) & 0xFF, line);
     this->writeChunk((constant >> 16) & 0xFF, line);

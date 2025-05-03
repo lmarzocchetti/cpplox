@@ -10,8 +10,8 @@
 /**
  * Op Codes for the VM
  */
-enum OpCode {
-    OP_CONSTANT,
+enum class OpCode {
+    OP_CONSTANT = 0,
     OP_CONSTANT_LONG,
     OP_ADD,
     OP_SUBTRACT,
