@@ -7,7 +7,7 @@
 #include "debug.hpp"
 #include "compiler.hpp"
 
-enum InterpretResult {
+enum class InterpretResult {
     INTERPRET_OK,
     INTERPRET_COMPILE_ERROR,
     INTERPRET_RUNTIME_ERROR
@@ -30,7 +30,6 @@ private:
     void resetStack();
     void printStack() const;
 
-    constexpr void NEW_BINARY_OP(const std::function<Value(Value, Value)>& op);
     constexpr uint8_t READ_BYTE();
     constexpr Value READ_CONSTANT();
     constexpr Value READ_CONSTANT_LONG();

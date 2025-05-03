@@ -1,7 +1,3 @@
-//
-// Created by Lorenzo Marzocchetti on 23/02/24.
-//
-
 #include "debug.hpp"
 
 void disassembleChunk(const Chunk& chunk, const std::string& name) {

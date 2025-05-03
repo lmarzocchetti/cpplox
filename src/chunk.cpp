@@ -1,8 +1,3 @@
-//
-// Created by Lorenzo Marzocchetti on 24/02/24.
-//
-//
-
 #include "chunk.hpp"
 
 Chunk::Chunk() {

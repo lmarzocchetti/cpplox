@@ -1,3 +1,9 @@
+#ifdef DEBUG_MEMORY_LEAKS
+#define _CRTDBG_MAP_ALLOC
+#include <cstdlib>
+#include <crtdbg.h>
+#endif
+
 #include <string>
 #include <fstream>
 
@@ -73,6 +79,13 @@ int main1() {
 }
 
 int main(int argc, const char* argv[]) {
+#ifdef DEBUG_MEMORY_LEAKS
+    // Abilita il rilevamento dei memory leak
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
+
+    void* a = malloc(1000);
+
     VM vm = VM();
 
     if (argc == 1) {
