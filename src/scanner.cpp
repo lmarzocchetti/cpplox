@@ -268,7 +268,7 @@ TokenType Scanner::identifierType(int skipped) {
             return checkKeyword(4, skipped, "hile", TokenType::TOKEN_WHILE);
     }
 
-    return TOKEN_IDENTIFIER;
+    return TokenType::TOKEN_IDENTIFIER;
 }
 
 Token Scanner::identifier() {
