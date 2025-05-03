@@ -5,6 +5,7 @@
 /cmake-build-release-clang/
 /build/
 /.cache/
+/prova.lox
 /.DS_Store/
 /.vs/
 /out/

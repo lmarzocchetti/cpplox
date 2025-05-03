@@ -19,7 +19,7 @@ static void repl(VM& vm) {
             std::cout << std::format("exiting...\n");
             break;
         }
-
+        
         vm.interpret(line);
     }
 }
